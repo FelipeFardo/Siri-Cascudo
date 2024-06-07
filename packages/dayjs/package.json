@@ -1,0 +1,25 @@
+{
+  "name": "@siricascudo/dayjs",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10"
+  },
+  "devDependencies": {
+    "@siricascudo/tsconfig": "workspace:*",
+    "@siricascudo/prettier": "workspace:*",
+    "@siricascudo/eslint-config": "workspace:*"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@siricascudo/eslint-config/lib"
+    ]
+  },
+  "prettier": "@siricascudo/prettier"
+}

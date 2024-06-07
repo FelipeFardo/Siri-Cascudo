@@ -1,0 +1,30 @@
+{
+  "name": "@siricascudo/auth",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@auth/core": "^0.25.0",
+    "@siricascudo/env": "workspace:*",
+    "@siricascudo/prisma": "workspace:*",
+    "bcrypt": "^5.1.1",
+    "next-auth": "beta"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@siricascudo/eslint-config": "workspace:*",
+    "@siricascudo/prettier": "workspace:*",
+    "@siricascudo/tsconfig": "workspace:*"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@siricascudo/eslint-config/lib"
+    ]
+  },
+  "prettier": "@siricascudo/prettier"
+}

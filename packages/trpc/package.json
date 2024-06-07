@@ -1,0 +1,34 @@
+{
+  "name": "@siricascudo/trpc",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@siricascudo/auth": "workspace:*",
+    "@siricascudo/cloudflare": "workspace:*",
+    "@siricascudo/dayjs": "workspace:*",
+    "@siricascudo/env": "workspace:*",
+    "@siricascudo/prisma": "workspace:*",
+    "@trpc/server": "next",
+    "bcrypt": "^5.1.1",
+    "superjson": "^2.2.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@siricascudo/eslint-config": "workspace:*",
+    "@siricascudo/prettier": "workspace:*",
+    "@siricascudo/tsconfig": "workspace:*"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@siricascudo/eslint-config/lib"
+    ]
+  },
+  "prettier": "@siricascudo/prettier"
+}

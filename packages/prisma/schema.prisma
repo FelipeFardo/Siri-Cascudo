@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String?
+  email         String         @unique
+  emailVerified DateTime?
+  phone         String?
+  passwordHash  String?        @map("password_hash")
+  avatarUrl     String?        @map("avatar_url")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt() @map("updated_at")
+  accounts      Account[]
+  sessions      Session[]
+  organizations Organization[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String @id @default(uuid())
+  provider          String
+  providerAccountId String @unique @map("provider_account_id")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
+
+  @@unique([provider, userId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  expires      DateTime
+  sessionToken String   @unique @map("session_token")
+  accessToken  String   @unique @map("access_token")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  userId       String   @map("user_id")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("sessions")
+}
+
+model Organization {
+  id          String @id @default(uuid())
+  name        String
+  slug        String @unique
+  description String
+
+  owner   User   @relation(fields: [ownerId], references: [id])
+  ownerId String @map("owner_id")
+
+  @@map("organization")
+}
