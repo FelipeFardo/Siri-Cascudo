@@ -22,3 +22,4 @@ export const trpcLinks: TRPCLink<AppRouter>[] = [
 export const nativeClient = createTRPCClient<AppRouter>({
   links: trpcLinks,
 })
+

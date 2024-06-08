@@ -32,7 +32,7 @@ export const userRouter = createTRPCRouter({
 
       const hashedPassword = await hash(password, 12)
 
-      await db.user.create({
+      return await db.user.create({
         data: {
           email,
           name,
