@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "1.0.6",
     "@siricascudo/auth": "workspace:*",
     "@siricascudo/cloudflare": "workspace:*",
@@ -27,9 +28,9 @@
     "next-themes": "0.2.1",
     "react": "^18",
     "react-dom": "^18",
+    "superjson": "^2.2.1",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7",
-    "superjson": "^2.2.1"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20",
