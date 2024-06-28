@@ -1,5 +1,5 @@
 import { db } from '@siricascudo/prisma'
-import { compare } from 'bcrypt'
+import { compare } from 'bcryptjs'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 export const credentialsProvider = CredentialsProvider({
@@ -42,7 +42,7 @@ export const credentialsProvider = CredentialsProvider({
         throw new Error('Unauthorized.')
       }
 
-      return user
+      return { ...user, orgSlug: null, restaurantSlug: null }
     }
 
     throw new Error('Unauthorized.')

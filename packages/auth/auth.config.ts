@@ -24,7 +24,11 @@ export const authConfig = {
 
       return false
     },
-    jwt({ token, session, trigger }) {
+    jwt({ token, user, session, trigger }) {
+      if (user) {
+        token.orgSlug = user.orgSlug
+        token.restaurantSlug = user.restaurantSlug
+      }
       function isSessionAvailable(session: unknown): session is Session {
         return !!session
       }
@@ -35,11 +39,13 @@ export const authConfig = {
 
       return token
     },
-    session({ session, ...params }) {
+    async session(tudo) {
+      const { session, ...params } = tudo
       if ('token' in params && session.user) {
         session.user.id = params.token.sub!
+        session.user.orgSlug = params.token.orgSlug
+        session.user.restaurantSlug = params.token.restaurantSlug
       }
-
       return session
     },
   },

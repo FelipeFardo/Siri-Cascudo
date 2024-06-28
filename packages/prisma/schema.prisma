@@ -20,6 +20,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   organizations Organization[]
+  Member        Member[]
+  Restaurant    Restaurant[]
 
   @@map("users")
 }
@@ -51,13 +53,55 @@ model Session {
 }
 
 model Organization {
+  id          String  @id @default(uuid())
+  name        String
+  slug        String  @unique
+  description String
+  avatarUrl   String? @map("avatar_url")
+  owner       User    @relation(fields: [ownerId], references: [id])
+  ownerId     String  @map("owner_id")
+
+  members     Member[]
+  restaurants Restaurant[]
+
+  @@map("organization")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+  BILLING
+}
+
+model Member {
+  id   String @id @default(uuid())
+  role Role   @default(MEMBER)
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String       @map("organization_id")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
+
+  @@unique([organizationId, userId])
+  @@map("members")
+}
+
+model Restaurant {
   id          String @id @default(uuid())
   name        String
-  slug        String @unique
   description String
+  slug        String @unique
+
+  avatarUrl String?  @map("avatar_url")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  organizationId String       @map("organization_id")
 
   owner   User   @relation(fields: [ownerId], references: [id])
   ownerId String @map("owner_id")
 
-  @@map("organization")
+  @@map("restaurants")
 }

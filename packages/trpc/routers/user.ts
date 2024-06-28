@@ -1,12 +1,18 @@
+import { roleSchema } from '@siricascudo/permissions'
 import { db } from '@siricascudo/prisma'
 import { TRPCError } from '@trpc/server'
-import { hash } from 'bcrypt'
+import { hash } from 'bcryptjs'
 import { z } from 'zod'
 
-import { createTRPCRouter, protectedProcedure } from '../trpc'
+import {
+  createTRPCRouter,
+  protectedMemberships,
+  protectedProcedure,
+  publicProcedure,
+} from '../trpc'
 
 export const userRouter = createTRPCRouter({
-  createUser: protectedProcedure
+  createUser: publicProcedure
     .input(
       z.object({
         email: z.string(),
@@ -17,7 +23,6 @@ export const userRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       const { email, name, password, phone } = input
-
       const userByEmail = await db.user.findUnique({
         where: {
           email,
@@ -41,4 +46,42 @@ export const userRouter = createTRPCRouter({
         },
       })
     }),
+
+  getProfile: protectedProcedure.query(async ({ ctx }) => {
+    const { session } = ctx
+
+    const user = await db.user.findUnique({
+      where: {
+        id: session?.user.id,
+      },
+    })
+
+    if (!user) {
+      throw new TRPCError({
+        code: 'BAD_REQUEST',
+      })
+    }
+
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        phone: user.phone,
+        avatarUrl: user.avatarUrl,
+      },
+    }
+  }),
+  getMembership: protectedMemberships.query(async ({ ctx }) => {
+    const { membership } = ctx
+
+    return {
+      membership: {
+        id: membership.id,
+        role: roleSchema.parse(membership.role),
+        organizationId: membership.organizationId,
+        userId: membership.userId,
+      },
+    }
+  }),
 })

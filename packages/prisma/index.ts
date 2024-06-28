@@ -1,5 +1,8 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Organization, Member } from '@prisma/client'
 
 export const db = new PrismaClient({
-  log: ['query'],
+  log: ['error'],
 })
+
+
+export type { Organization, Member }

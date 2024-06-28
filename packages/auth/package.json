@@ -11,14 +11,14 @@
     "@auth/core": "^0.25.0",
     "@siricascudo/env": "workspace:*",
     "@siricascudo/prisma": "workspace:*",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "next-auth": "beta"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
     "@siricascudo/eslint-config": "workspace:*",
     "@siricascudo/prettier": "workspace:*",
-    "@siricascudo/tsconfig": "workspace:*"
+    "@siricascudo/tsconfig": "workspace:*",
+    "@types/bcryptjs": "^2.4.6"
   },
   "eslintConfig": {
     "root": true,

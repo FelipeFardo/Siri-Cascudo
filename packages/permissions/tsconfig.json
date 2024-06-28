@@ -1,0 +1,4 @@
+{
+  "extends": "@siricascudo/tsconfig/lib.json",
+  "include": ["src/**/*"]
+}
